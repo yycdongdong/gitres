@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: SqlSevice
+  redis:
+    host: 192.168.80.131
+    port: 6379
+    database: 0 # 几号库
+    lettuce:
+      pool:
+        max-active: 8 # 最大连接
+        max-idle: 8 # 最大空闲连接
+        min-idle: 0 # 最小空闲连接
+        max-wait: 100ms # 连接等待时间
+  #cloud:
+  #  nacos:
+  #    config:
+  #      #enabled: false
+  #      file-extension: yaml
+  #      #group: testnacos
+  #      #namespace: A61
+  #    server-addr: 127.0.0.1:10086
+  #    discovery:
+  #      cluster-name: HZ #杭州
