@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class pojo {
     private String sname;
     private Long sno;
-
+    private String School;
    
 
     public pojo() {
