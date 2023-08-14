@@ -1,0 +1,22 @@
+
+server:
+  port: 8080
+#eureka:
+ # client:
+ #   service-url:
+ #     defaultZone: http://127.0.0.1:8081/eureka
+elasticsearch:
+  host: 192.168.80.131
+  # es服务端口
+  port: 9200
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      metaDataClient:
+        connect-timeout: 2000
+        read-timeout: 2000
+      #deafault:
+        #connectTimeout: 2000
+        #readTimeout: 2000

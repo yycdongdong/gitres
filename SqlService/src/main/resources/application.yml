@@ -1,0 +1,35 @@
+spring:
+  #kafka:
+  #  bootstrap-servers: 192.168.80.131:9092
+  #  #producer:
+  #  #  #key、value默认是以序列化的方式发送的，局限性大，所以修改机制为字符串方式
+  #  #  key-serializer: org.apache.kafka.common.serialization.StringSerializer
+  #  #  value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  #  consumer:
+#
+  #    #消费者需要反序列化字符串
+  #    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  #    value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  #    #消费组：指的就是由一个或多个消费者组成的群体
+  #    group-id: helloGroup
+
+  #数据库连接信息
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ruankai061?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+  #数据库初始化配置
+  sql:
+    init:
+      mode: always
+server:
+  port: 8083
+logging:
+  #eureka:
+ # client:
+ #   service-url:
+ #     defaultZone: http://127.0.0.1:8081/eureka
+  level:
+    com:
+      ss: debug
