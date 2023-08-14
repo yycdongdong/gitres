@@ -9,6 +9,8 @@ public class pojo {
     private Long sno;
     private String School;
    private Long student;
+    private Long studentSno;
+
 
     public pojo() {
     }
