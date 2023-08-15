@@ -1,0 +1,28 @@
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: test-service
+          uri: lb://CallSql
+          predicates:
+            - Path=/cs/**
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - HEAD
+              - POST
+              - PUT
+              - DELETE
+              - TRACE
+              - OPTIONS
+              - PATCH
+            allowedHeaders:
+              - "rk"
+  main:
+    web-application-type: reactive
+server:
+  port: 9000

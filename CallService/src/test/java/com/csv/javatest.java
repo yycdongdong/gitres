@@ -19,13 +19,12 @@ import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.text.Text;
 import org.elasticsearch.common.xcontent.XContentType;
-import org.elasticsearch.index.query.MatchQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.RangeQueryBuilder;
+import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.junit.jupiter.api.AfterEach;
@@ -34,6 +33,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootTest
@@ -71,6 +71,14 @@ public class javatest {
         }
     }
     @Test
+    void qsq() throws IOException {
+        SearchRequest searchRequest=new SearchRequest("rk");
+        QueryStringQueryBuilder queryStringQueryBuilder =QueryBuilders.queryStringQuery("Fujian泉州6");
+        searchRequest.source().query(queryStringQueryBuilder);
+        SearchResponse search = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
+        System.out.println(search);
+    }
+    @Test
     public void EsTest() throws IOException {
         SearchRequest searchRequest=new SearchRequest("rk");
         searchRequest.source().from(2);
@@ -80,20 +88,25 @@ public class javatest {
         MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery("school", "泉州");
         //sno.gte(203111061L);
         //sno.lte(203111961L);
+
         searchRequest.source().query(matchQueryBuilder);
         HighlightBuilder highlightBuilder = new HighlightBuilder();
         highlightBuilder.field("school").requireFieldMatch(false);
         searchRequest.source().highlighter(highlightBuilder);
         SearchResponse searchResponse=restHighLevelClient.search(searchRequest,RequestOptions.DEFAULT);
-
-        SearchHits hits = searchResponse.getHits();
-        SearchHit[] hits1 = hits.getHits();
+        SearchHit[] hits1 = searchResponse.getHits().getHits();
+        System.out.println("searchResponse");
+        System.out.println(searchResponse);
         for(SearchHit hit:hits1){
             Map<String, HighlightField> highlightFields = hit.getHighlightFields();
             HighlightField school = highlightFields.get("school");
-            System.out.println(school.getFragments()[0].toString());
+            System.out.println("getFragments");
+            Text[] fragments = school.getFragments();
+            System.out.println(fragments[0].toString());
             Rk jsonObject = (Rk) JSON.parseObject(hit.getSourceAsString(),Rk.class);
+            System.out.println("getSchool");
             System.out.println(jsonObject.getSchool());
+            System.out.println("jsonObject.toString");
             System.out.println(jsonObject.toString());
 
         }
